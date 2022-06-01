@@ -13,7 +13,7 @@ const dataProvider = {
       range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
       filter: JSON.stringify(params.filter),
     };
-    const url = `${apiUrl}/${resource}/${JSON.stringify(query)}`;
+    const url = `${apiUrl}/${resource}?${stringify(query)}`;
     return httpClient(url).then(({ headers, json }) => ({
       data: json.map((resource) => ({ ...resource, id: resource._id })),
       total: parseInt(headers.get("content-range").split("/").pop() || 0, 10),
@@ -49,7 +49,7 @@ const dataProvider = {
 
     return httpClient(url).then(({ headers, json }) => ({
       data: json.map((resource) => ({ ...resource, id: resource._id })),
-      total: parseInt(headers.get("content-range").split("/").pop(), 10),
+      total: parseInt(headers.get("content-range").split("/").pop() || 0, 10),
     }));
   },
 
