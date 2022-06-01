@@ -16,7 +16,7 @@ const dataProvider = {
     const url = `${apiUrl}/${resource}?${stringify(query)}`;
     return httpClient(url).then(({ headers, json }) => ({
       data: json.map((resource) => ({ ...resource, id: resource._id })),
-      total: parseInt(headers.get("content-range").split("/").pop(), 5),
+      total: parseInt(headers.get("content-range")?.split("/").pop(), 5),
     }));
   },
   getOne: (resource, params) =>
@@ -49,7 +49,7 @@ const dataProvider = {
 
     return httpClient(url).then(({ headers, json }) => ({
       data: json.map((resource) => ({ ...resource, id: resource._id })),
-      total: parseInt(headers.get("content-range").split("/").pop(), 5),
+      total: parseInt(headers.get("content-range")?.split("/").pop(), 5),
     }));
   },
 
