@@ -16,7 +16,9 @@ const dataProvider = {
     const url = `${apiUrl}/${resource}?${JSON.stringify(query)}`;
     return httpClient(url).then(({ headers, json }) => ({
       data: json.map((resource) => ({ ...resource, id: resource._id })),
-      total: parseInt(headers.get("content-range").split("/").pop(), 10),
+      total: headers
+        ? parseInt(headers.get("content-range").split("/").pop(), 10)
+        : "",
     }));
   },
   getOne: (resource, params) =>
