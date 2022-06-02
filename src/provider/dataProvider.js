@@ -55,7 +55,7 @@ const dataProvider = {
   },
 
   update: (resource, params) =>
-    httpClient(`${apiUrl}/${resource}/update/${params.id}`, {
+    httpClient(`${apiUrl}/${resource}/${params.id}`, {
       method: "PUT",
       body: JSON.stringify(params.data),
     }).then(({ data, json }) => ({ ...json, id: json._id, data: data })),
@@ -71,7 +71,7 @@ const dataProvider = {
   },
 
   create: (resource, params) =>
-    httpClient(`${apiUrl}/${resource}/create`, {
+    httpClient(`${apiUrl}/${resource}`, {
       method: "POST",
       body: JSON.stringify(params.data),
       headers: {
@@ -82,7 +82,7 @@ const dataProvider = {
     })),
 
   delete: (resource, params) =>
-    httpClient(`${apiUrl}/${resource}/delete/${JSON.stringify(params.id)}`, {
+    httpClient(`${apiUrl}/${resource}/${JSON.stringify(params.id)}`, {
       method: "DELETE",
     }).then(({ data, json }) => ({
       ...json,
@@ -95,7 +95,7 @@ const dataProvider = {
       filter: JSON.stringify({ id: params.id }),
     };
     return httpClient(
-      `${apiUrl}/${resource}/delete?${JSON.stringify(stringify(query))}`,
+      `${apiUrl}/${resource}?${JSON.stringify(stringify(query))}`,
       {
         method: "DELETE",
         body: JSON.stringify(params.data),
