@@ -73,6 +73,9 @@ const dataProvider = {
     httpClient(`${apiUrl}/${resource}/create`, {
       method: "POST",
       body: JSON.stringify(params.data),
+      headers: {
+        accept: "application/json",
+      },
     }).then(({ json, msg }) => ({
       data: { ...params.data, id: json._id, msg },
     })),
