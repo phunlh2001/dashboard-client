@@ -1,8 +1,8 @@
 import { fetchUtils } from "react-admin";
 import { stringify } from "query-string";
 
-// const apiUrl = "http://localhost:3000";
-const apiUrl = "https://dashboard-client-umber.vercel.app";
+const apiUrl = "http://localhost:3000";
+// const apiUrl = "https://dashboard-client-umber.vercel.app";
 const httpClient = fetchUtils.fetchJson;
 
 const dataProvider = {
