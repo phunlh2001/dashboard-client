@@ -1,7 +1,7 @@
 import { fetchUtils } from "react-admin";
 import { stringify } from "query-string";
 
-// const apiUrl = "https://dashboard-account-server.herokuapp.com";
+// const apiUrl = "http://localhost:3000";
 const apiUrl = "https://dashboard-client-umber.vercel.app";
 const httpClient = fetchUtils.fetchJson;
 
@@ -15,9 +15,10 @@ const dataProvider = {
       filter: JSON.stringify(params.filter),
     };
     const url = `${apiUrl}/${resource}?${stringify(query)}`;
+
     return httpClient(url).then(({ headers, json }) => ({
       data: json.map((resource) => ({ ...resource, id: resource._id })),
-      total: parseInt(headers.get("content-range")?.split("/").pop(), 5),
+      total: parseInt(headers.get("content-range").split("/").pop(), 10),
     }));
   },
   getOne: (resource, params) =>
@@ -50,12 +51,12 @@ const dataProvider = {
 
     return httpClient(url).then(({ headers, json }) => ({
       data: json.map((resource) => ({ ...resource, id: resource._id })),
-      total: parseInt(headers.get("content-range")?.split("/").pop(), 5),
+      total: parseInt(headers.get("content-range").split("/").pop(), 10),
     }));
   },
 
   update: (resource, params) =>
-    httpClient(`${apiUrl}/${resource}/${params.id}`, {
+    httpClient(`${apiUrl}/${resource}/update/${params.id}`, {
       method: "PUT",
       body: JSON.stringify(params.data),
     }).then(({ data, json }) => ({ ...json, id: json._id, data: data })),
@@ -71,18 +72,15 @@ const dataProvider = {
   },
 
   create: (resource, params) =>
-    httpClient(`${apiUrl}/${resource}`, {
+    httpClient(`${apiUrl}/${resource}/create`, {
       method: "POST",
       body: JSON.stringify(params.data),
-      headers: {
-        accept: "application/json",
-      },
     }).then(({ json, msg }) => ({
       data: { ...params.data, id: json._id, msg },
     })),
 
   delete: (resource, params) =>
-    httpClient(`${apiUrl}/${resource}/${JSON.stringify(params.id)}`, {
+    httpClient(`${apiUrl}/${resource}/delete/${JSON.stringify(params.id)}`, {
       method: "DELETE",
     }).then(({ data, json }) => ({
       ...json,
@@ -95,7 +93,7 @@ const dataProvider = {
       filter: JSON.stringify({ id: params.id }),
     };
     return httpClient(
-      `${apiUrl}/${resource}?${JSON.stringify(stringify(query))}`,
+      `${apiUrl}/${resource}/delete?${JSON.stringify(stringify(query))}`,
       {
         method: "DELETE",
         body: JSON.stringify(params.data),
