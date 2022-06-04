@@ -1,8 +1,8 @@
 import { fetchUtils } from "react-admin";
 import { stringify } from "query-string";
 
-const apiUrl = "https://dashboard-account-server.herokuapp.com";
-// const apiUrl = "https://dashboard-client-umber.vercel.app";
+// const apiUrl = "https://dashboard-account-server.herokuapp.com";
+const apiUrl = "https://dashboard-client-umber.vercel.app";
 const httpClient = fetchUtils.fetchJson;
 
 const dataProvider = {
