@@ -1,5 +1,5 @@
 import { fetchUtils } from "react-admin";
-// import { stringify } from "query-string";
+import { stringify } from "query-string";
 
 // const apiUrl = "http://localhost:3000";
 const apiUrl = "https://dashboard-account-review.netlify.app";
@@ -14,7 +14,7 @@ const dataProvider = {
       range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
       filter: JSON.stringify(params.filter),
     };
-    const url = `${apiUrl}/${resource}?${query}`;
+    const url = `${apiUrl}/${resource}?${stringify(query)}`;
 
     return httpClient(url).then(({ headers, json }) => ({
       data: json.map((resource) => ({ ...resource, id: resource._id })),
@@ -31,7 +31,7 @@ const dataProvider = {
     const query = {
       filter: JSON.stringify({ id: params.ids }),
     };
-    const url = `${apiUrl}/${resource}?${query}`;
+    const url = `${apiUrl}/${resource}?${stringify(query)}`;
     return httpClient(url).then(({ json }) => ({
       data: json.map((resource) => ({ ...resource, id: resource._id })),
     }));
@@ -48,7 +48,7 @@ const dataProvider = {
         [params.target]: params.id,
       }),
     };
-    const url = `${apiUrl}/${resource}?${query}`;
+    const url = `${apiUrl}/${resource}?${stringify(query)}`;
 
     return httpClient(url).then(({ headers, json }) => ({
       data: json.map((resource) => ({ ...resource, id: resource._id })),
@@ -66,7 +66,7 @@ const dataProvider = {
     const query = {
       filter: JSON.stringify({ id: params.ids }),
     };
-    return httpClient(`${apiUrl}/${resource}/update?${query}`, {
+    return httpClient(`${apiUrl}/${resource}/update?${stringify(query)}`, {
       method: "PUT",
       body: JSON.stringify(params.data),
     }).then(({ json }) => ({ data: json }));
