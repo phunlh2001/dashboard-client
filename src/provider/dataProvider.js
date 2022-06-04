@@ -2,7 +2,7 @@ import { fetchUtils } from "react-admin";
 import { stringify } from "query-string";
 
 // const apiUrl = "http://localhost:3000";
-const apiUrl = "https://dashboard-client-liard.vercel.app/";
+const apiUrl = "https://dashboard-account-review.netlify.app/";
 const httpClient = fetchUtils.fetchJson;
 
 const dataProvider = {
